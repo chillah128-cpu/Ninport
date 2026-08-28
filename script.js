@@ -45,21 +45,91 @@
         {
           id: 'Logo-book',
           title: 'Logo-book',
-          banner: 'photo/Screenshot_2.png',
+          banner: 'photo/Frame 20.png',
           items: [
-            { type: 'pdf', src: 'photo/логобук.pdf', title: 'Логобук Coffee Machine' },
             { type: 'text', text: 'Логобук содержит ручную стилизацию и 3 разновидности логотипов' },
-            { type: 'text', text: 'The logobook contains a custom-lettered design and three logo variations.' }
+            { type: 'text', text: 'The logobook contains a custom-lettered design and three logo variations.' },
+            { type: 'carousel',
+              title: 'Листайте вправо (Slide to the left)',
+              images: [
+                'photo/Frame 18.png',
+                'photo/Frame 9.png',
+                'photo/Frame 10.png',
+                'photo/Frame 11.png',
+                'photo/Frame 12.png',
+                'photo/Frame 13.png',
+                'photo/Frame 14.png',
+                'photo/Frame 15.png',
+                'photo/Frame 16.png',
+                'photo/Frame 17.png',
+                'photo/Frame 19.png',
+                'photo/Frame 20.png',
+                'photo/Frame 21.png',
+                'photo/Frame 23.png'
+              ]
+            }
           ]
         },
+
         {
           id: 'Омск',
           title: 'Брендинг города Омск для горожан и туристов (Omsk city branding)',
           banner: 'photo/456258303.png',
           items: [
-            { type: 'pdf', src: 'photo/456258303-объединены.pdf', title: 'Брендинг города Омск для горожан и туристов' },
-            { type: 'text', text: 'Брендинг города Омск и разработка надлежащей айдентики. Групповая работа, в которой я принимала участие в качестве дизайнера.' },
-            { type: 'text', text: 'Branding for the city of Omsk and development of a suitable visual identity. A group project in which I participated as a designer.' }
+            { 
+              type: 'text', 
+              text: 'Брендинг города Омск и разработка надлежащей айдентики. Групповая работа, в которой я принимала участие в качестве дизайнера.' 
+            },
+            { 
+              type: 'text', 
+              text: 'Branding for the city of Omsk and development of a suitable visual identity. A group project in which I participated as a designer.' 
+            },
+            {
+              type: 'carousel',
+              title: 'Листайте вправо (Slide to the left)',
+              images: [
+                'photo/14.png',
+                'photo/456258292.png',
+                'photo/456258293.png',
+                'photo/17.png',
+                'photo/18.png',
+                'photo/456258297.png',
+                'photo/456258298.png',
+                'photo/456258295.png',
+                'photo/22.png',
+                'photo/456258296.png',
+                'photo/28.png',
+                'photo/456258300.png',
+                'photo/30.png',
+                'photo/31.png',
+                'photo/32.png',
+                'photo/34.png',
+                'photo/35.png',
+                'photo/36.png',
+                'photo/37.png',
+                'photo/38.png',
+                'photo/39.png',
+                'photo/40.png',
+                'photo/41.png',
+                'photo/42.png',
+                'photo/43.png',
+                'photo/456258301.png',
+                'photo/45.png',
+                'photo/46.png',
+                'photo/47.png',
+                'photo/48.png',
+                'photo/49.png',
+                'photo/50.png',
+                'photo/51.png',
+                'photo/52.png',
+                'photo/53.png',
+                'photo/54.png',
+                'photo/55.png',
+                'photo/56.png',
+                'photo/57.png',
+                'photo/58.png'
+              ]
+            }
           ]
         }
       ]
@@ -175,13 +245,12 @@
           ]
         }
       ]
-    },
+    }
   ];
 
   const gallery = document.getElementById('gallery-container');
   const pagesContainer = document.getElementById('project-pages-container');
 
-  // ---------- РЕНДЕР ГАЛЕРЕИ ----------
   function renderGallery() {
     gallery.innerHTML = '';
     projects.forEach((p, index) => {
@@ -204,12 +273,10 @@
     });
   }
 
-  // ---------- ПРОВЕРКА, ЕСТЬ ЛИ СЕКЦИИ В ПРОЕКТЕ ----------
   function hasSections(project) {
     return project.sections && project.sections.length > 0;
   }
 
-  // ---------- РЕНДЕР ЭЛЕМЕНТА СЕКЦИИ (ЧЕРЕЗ INNERHTML) ----------
   function renderSectionItem(item) {
     const container = document.createElement('div');
     container.className = 'section-item';
@@ -220,7 +287,6 @@
         <img src="${item.src}" alt="изображение" style="width: 100%; border-radius: 8px; display: block;">
       `;
     } else if (item.type === 'video') {
-      // Используем innerHTML как в тесте
       container.innerHTML = `
         <div style="background: #0a0a0e; border-radius: 12px; padding: 20px; border: 1px solid #e8e8ec;">
           <video controls style="width: 100%; border-radius: 8px; background: #1a1a1a; display: block; min-height: 300px; max-height: 600px;">
@@ -241,6 +307,84 @@
       container.innerHTML = `
         <div style="font-size: 1rem; line-height: 1.6; color: #1a1a1a; white-space: pre-wrap; padding: 0.5rem 0.2rem;">${item.text}</div>
       `;
+    } else if (item.type === 'carousel') {
+      container.innerHTML = `
+        <div style="background: #f8f8fa; border-radius: 12px; padding: 20px; border: 1px solid #e8e8ec;">
+          <div style="font-size: 1.1rem; font-weight: 500; margin-bottom: 15px; color: #1a1a1a;">${item.title || 'Галерея'}</div>
+          <div class="carousel-container" style="position: relative; overflow: hidden; border-radius: 8px;">
+            <div class="carousel-track" style="display: flex; transition: transform 0.5s ease; will-change: transform;">
+              ${item.images.map((src, idx) => `
+                <div class="carousel-slide" style="min-width: 100%; flex-shrink: 0;">
+                  <img src="${src}" alt="Слайд ${idx + 1}" style="width: 100%; height: auto; max-height: 500px; object-fit: contain; border-radius: 8px; background: white;">
+                </div>
+              `).join('')}
+            </div>
+            <button class="carousel-prev" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 20px; z-index: 10; transition: background 0.2s;">‹</button>
+            <button class="carousel-next" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 20px; z-index: 10; transition: background 0.2s;">›</button>
+            <div class="carousel-dots" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10;"></div>
+          </div>
+        </div>
+      `;
+
+      // Инициализируем карусель
+      setTimeout(() => {
+        const containerEl = container.querySelector('.carousel-container');
+        if (!containerEl) return;
+        
+        const track = containerEl.querySelector('.carousel-track');
+        const slides = containerEl.querySelectorAll('.carousel-slide');
+        const prevBtn = containerEl.querySelector('.carousel-prev');
+        const nextBtn = containerEl.querySelector('.carousel-next');
+        const dotsContainer = containerEl.querySelector('.carousel-dots');
+        
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        // Создаем точки
+        slides.forEach((_, idx) => {
+          const dot = document.createElement('span');
+          dot.className = 'carousel-dot';
+          dot.style.cssText = `
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: ${idx === 0 ? 'white' : 'rgba(255,255,255,0.4)'};
+            cursor: pointer;
+            transition: background 0.3s;
+            border: none;
+          `;
+          dot.addEventListener('click', () => goToSlide(idx));
+          dotsContainer.appendChild(dot);
+        });
+
+        function goToSlide(index) {
+          currentIndex = index;
+          track.style.transform = `translateX(-${currentIndex * 100}%)`;
+          
+          // Обновляем точки
+          dotsContainer.querySelectorAll('.carousel-dot').forEach((dot, idx) => {
+            dot.style.background = idx === currentIndex ? 'white' : 'rgba(255,255,255,0.4)';
+          });
+        }
+
+        prevBtn.addEventListener('click', () => {
+          goToSlide((currentIndex - 1 + totalSlides) % totalSlides);
+        });
+
+        nextBtn.addEventListener('click', () => {
+          goToSlide((currentIndex + 1) % totalSlides);
+        });
+
+        // Клавиши влево/вправо
+        document.addEventListener('keydown', (e) => {
+          if (containerEl.closest('.project-page.active-page')) {
+            if (e.key === 'ArrowLeft') prevBtn.click();
+            if (e.key === 'ArrowRight') nextBtn.click();
+          }
+        });
+
+      }, 100);
     }
 
     return container;
@@ -352,7 +496,7 @@
 
         page.appendChild(sectionsContainer);
       } else {
-        // Обычный рендеринг
+        // Обычный рендеринг для проектов без секций (Омск, WEB-разработка)
         const projGallery = document.createElement('div');
         projGallery.className = 'project-gallery';
         projGallery.style.cssText = 'display: flex; flex-direction: column; gap: 2rem;';
@@ -377,6 +521,94 @@
               text.textContent = item.text;
               text.style.cssText = 'white-space: pre-line; padding: 0.5rem 0;';
               projGallery.appendChild(text);
+            }
+
+            if (item.type === 'pdf') {
+              const pdfContainer = document.createElement('div');
+              pdfContainer.style.cssText = 'background: #f8f8fa; border-radius: 12px; padding: 20px; border: 1px solid #e8e8ec;';
+              pdfContainer.innerHTML = `
+                <iframe src="${item.src}" style="width: 100%; height: 600px; border: none; border-radius: 8px; background: #f5f5f5;"></iframe>
+                <a href="${item.src}" download="${item.title || 'document.pdf'}" style="display: inline-block; margin-top: 12px; padding: 10px 24px; background: #1a1a1a; color: white; border-radius: 8px; text-decoration: none; font-size: 0.9rem;">📥 Скачать PDF</a>
+              `;
+              projGallery.appendChild(pdfContainer);
+            }
+
+            if (item.type === 'carousel') {
+              const carouselContainer = document.createElement('div');
+              carouselContainer.style.cssText = 'background: #f8f8fa; border-radius: 12px; padding: 20px; border: 1px solid #e8e8ec;';
+              carouselContainer.innerHTML = `
+                <div style="font-size: 1.1rem; font-weight: 500; margin-bottom: 15px; color: #1a1a1a;">${item.title || 'Галерея'}</div>
+                <div class="carousel-container" style="position: relative; overflow: hidden; border-radius: 8px;">
+                  <div class="carousel-track" style="display: flex; transition: transform 0.5s ease; will-change: transform;">
+                    ${item.images.map((src, idx) => `
+                      <div class="carousel-slide" style="min-width: 100%; flex-shrink: 0;">
+                        <img src="${src}" alt="Слайд ${idx + 1}" style="width: 100%; height: auto; max-height: 500px; object-fit: contain; border-radius: 8px; background: white;">
+                      </div>
+                    `).join('')}
+                  </div>
+                  <button class="carousel-prev" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 20px; z-index: 10; transition: background 0.2s;">‹</button>
+                  <button class="carousel-next" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 20px; z-index: 10; transition: background 0.2s;">›</button>
+                  <div class="carousel-dots" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10;"></div>
+                </div>
+              `;
+              projGallery.appendChild(carouselContainer);
+              
+              // Инициализируем карусель
+              setTimeout(() => {
+                const containerEl = carouselContainer.querySelector('.carousel-container');
+                if (!containerEl) return;
+                
+                const track = containerEl.querySelector('.carousel-track');
+                const slides = containerEl.querySelectorAll('.carousel-slide');
+                const prevBtn = containerEl.querySelector('.carousel-prev');
+                const nextBtn = containerEl.querySelector('.carousel-next');
+                const dotsContainer = containerEl.querySelector('.carousel-dots');
+                
+                let currentIndex = 0;
+                const totalSlides = slides.length;
+
+                slides.forEach((_, idx) => {
+                  const dot = document.createElement('span');
+                  dot.className = 'carousel-dot';
+                  dot.style.cssText = `
+                    display: inline-block;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background: ${idx === 0 ? 'white' : 'rgba(255,255,255,0.4)'};
+                    cursor: pointer;
+                    transition: background 0.3s;
+                    border: none;
+                  `;
+                  dot.addEventListener('click', () => goToSlide(idx));
+                  dotsContainer.appendChild(dot);
+                });
+
+                function goToSlide(index) {
+                  currentIndex = index;
+                  track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                  
+                  dotsContainer.querySelectorAll('.carousel-dot').forEach((dot, idx) => {
+                    dot.style.background = idx === currentIndex ? 'white' : 'rgba(255,255,255,0.4)';
+                  });
+                }
+
+                prevBtn.addEventListener('click', () => {
+                  goToSlide((currentIndex - 1 + totalSlides) % totalSlides);
+                });
+
+                nextBtn.addEventListener('click', () => {
+                  goToSlide((currentIndex + 1) % totalSlides);
+                });
+
+                document.addEventListener('keydown', (e) => {
+                  if (containerEl.closest('.project-page.active-page')) {
+                    if (e.key === 'ArrowLeft') prevBtn.click();
+                    if (e.key === 'ArrowRight') nextBtn.click();
+                  }
+                });
+
+              }, 100);
             }
 
             if (item.type === 'link') {
@@ -522,4 +754,68 @@
   });
 
   console.log('Портфолио загружено. Проектов: ' + projects.length);
+
+    // ========== POPUP ==========
+  const contactPopup = document.getElementById('contact-popup');
+  const aboutPopup = document.getElementById('about-popup');
+  const closeContact = document.getElementById('close-contact');
+  const closeAbout = document.getElementById('close-about');
+
+  // Находим ссылки в шапке
+  const navLinks = document.querySelectorAll('.main-header nav a');
+  
+  // Первая ссылка — "Обо мне", вторая — "Контакты"
+  if (navLinks.length >= 2) {
+    navLinks[0].addEventListener('click', (e) => {
+      e.preventDefault();
+      aboutPopup.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    navLinks[1].addEventListener('click', (e) => {
+      e.preventDefault();
+      contactPopup.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+
+  // Закрытие по крестику
+  closeContact.addEventListener('click', () => {
+    contactPopup.classList.remove('active');
+    document.body.style.overflow = '';
+  });
+
+  closeAbout.addEventListener('click', () => {
+    aboutPopup.classList.remove('active');
+    document.body.style.overflow = '';
+  });
+
+  // Закрытие по клику на фон
+  contactPopup.addEventListener('click', (e) => {
+    if (e.target === contactPopup) {
+      contactPopup.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+
+  aboutPopup.addEventListener('click', (e) => {
+    if (e.target === aboutPopup) {
+      aboutPopup.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Закрытие по ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (contactPopup.classList.contains('active')) {
+        contactPopup.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+      if (aboutPopup.classList.contains('active')) {
+        aboutPopup.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+  });
 })();
